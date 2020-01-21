@@ -1,0 +1,40 @@
+<div class="example-container">
+  <form (submit)="onSubmit(addNewPost)" #addNewPost="ngForm">
+    <mat-form-field>
+      <input matInput placeholder="Resim Yükle" name='image' ngModel>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Başlık" name='header' ngModel>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Kategori" name='category' ngModel>
+        <mat-option value="1">Seyehat</mat-option>
+        <mat-option value="2">Spor</mat-option>
+        <mat-option value="3">Ekonomi</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Durum" name='status' ngModel>
+        <mat-option value="1">Yayında</mat-option>
+        <mat-option value="2">Özel</mat-option>
+        <mat-option value="3">Taslak</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Yorum Onayı" name='approval' ngModel>
+        <mat-option value="1">Açık</mat-option>
+        <mat-option value="2">Kapalı</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color='primary' type="submit" style="float: right;">Ekle</button>
+
+  </form>
+  <!-- <mat-form-field>
+    <textarea matInput placeholder="Textarea"></textarea>
+  </mat-form-field> -->
+
+</div>
