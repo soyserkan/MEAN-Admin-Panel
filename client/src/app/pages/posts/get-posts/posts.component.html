@@ -10,21 +10,23 @@
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
 
-    <ng-container matColumnDef="id">
+    <ng-container matColumnDef="_id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-      <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+      <td mat-cell *matCellDef="let row">{{ row._id }}</td>
     </ng-container>
 
    
-    <ng-container matColumnDef="image">
+    <ng-container matColumnDef="file">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Fotoğraf</th>
-      <td mat-cell *matCellDef="let row">{{ row.image }}</td>
+      <td mat-cell *matCellDef="let row">
+       <img src="{{ row.file }}"> 
+      </td>
     </ng-container>
 
 
-    <ng-container matColumnDef="header">
+    <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Başlık</th>
-      <td mat-cell *matCellDef="let row">{{ row.header }}</td>
+      <td mat-cell *matCellDef="let row">{{ row.title }}</td>
     </ng-container>
 
 
@@ -42,10 +44,10 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="approval">
+    <ng-container matColumnDef="allowComments">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Yorum İzni</th>
       <td mat-cell *matCellDef="let row">
-        {{ row.approval }}
+        {{ row.allowComments }}
       </td>
     </ng-container>
 

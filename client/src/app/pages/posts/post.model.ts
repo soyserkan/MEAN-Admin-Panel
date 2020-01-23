@@ -1,9 +1,13 @@
 export interface Post {
     id: string;
-    image: string;
-    header: string;
+    file: string;
+    title: string;
     category: string;
-    approval: string;
+    allowComments: boolean;
     status: string;
     date: string;
+    slug: string;
+    comments: string;
+    user: string;
+    body: string;
 }

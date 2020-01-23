@@ -14,6 +14,7 @@ export class PostsService {
     getPosts() {
         this.http.get<{ message: string, posts: Post[] }>('http://localhost:3000/api/posts')
             .subscribe((postData) => {
+                console.log(postData);
                 this.posts = postData.posts;
                 this.postsUpdated.next([...this.posts]);
             });
@@ -23,8 +24,20 @@ export class PostsService {
         return this.postsUpdated.asObservable();
     }
 
-    addPost(id: string, image: string, header: string, category: string, approval: string, status: string, date: string) {
-        const post: Post = { id: id, image: image, header: header, category: category, approval: approval, status: status, date: date }
+    addPost(id: string, file: string, title: string, category: string, allowComments: boolean, status: string, date: string) {
+        const post: Post = {
+            id: id,
+            file: file,
+            title: title,
+            category: category,
+            allowComments: allowComments,
+            status: status,
+            date: date,
+            slug: '',
+            comments: '',
+            user: '',
+            body: ''
+        }
         this.http.post<{ message: string, posts: Post[] }>('http://localhost:3000/api/posts', post)
             .subscribe((responseData) => {
                 console.log(responseData.message);

@@ -30,12 +30,13 @@ export class PostsComponent implements OnInit, OnDestroy {
   constructor(public dialog: MatDialog, public postsService: PostsService) { }
 
   dataSource: MatTableDataSource<Post>;
-  displayedColumns: string[] = ['id', 'image', 'header', 'category', 'status', 'approval', 'date', 'actions'];
+  displayedColumns: string[] = ['_id', 'file', 'title', 'category', 'status', 'allowComments', 'date', 'actions'];
 
   ngOnInit() {
     this.postsService.getPosts();
     this.postsSub = this.postsService.getPostUpdateListener().subscribe((posts: Post[]) => {
       this.posts = posts;
+      console.log(posts);
       this.dataSource = new MatTableDataSource(this.posts);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

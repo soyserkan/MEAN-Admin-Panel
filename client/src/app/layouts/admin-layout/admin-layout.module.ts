@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
@@ -33,6 +33,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
+    ReactiveFormsModule,
     NgbModule,
     MatTableModule,
     MatFormFieldModule,
@@ -42,7 +43,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
-    MatRadioModule, MatSelectModule, MatCheckboxModule,
+    MatRadioModule, MatSelectModule, MatCheckboxModule
   ],
   declarations: [
     DashboardComponent,
