@@ -1,76 +1,72 @@
 <div class="example-container">
-  <form class="example-container" [formGroup]="options">
-    <mat-checkbox formControlName="hideRequired">Hide required marker</mat-checkbox>
-    <div>
-      <label>Float label: </label>
-      <mat-radio-group formControlName="floatLabel">
-        <mat-radio-button value="auto">Auto</mat-radio-button>
-        <mat-radio-button value="always">Always</mat-radio-button>
-        <mat-radio-button value="never">Never</mat-radio-button>
+  <mat-toolbar>Blog Yazısı Ekle</mat-toolbar>
+  <form
+    class="example-container"
+    (submit)="onSavePost(postForm)"
+    #postForm="ngForm"
+  >
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Başlık"
+        name="title"
+        [ngModel]="post?.title"
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea
+        matInput
+        placeholder="Blog Yazısı"
+        rows="10"
+        name="body"
+        [ngModel]="post?.body"
+      ></textarea>
+    </mat-form-field>
+
+    <div style="padding: 0 30px 0 30px;">
+      <label>Durum: </label>
+      <mat-radio-group name="status" [ngModel]="post?.status">
+        <mat-radio-button value="1">Yayında</mat-radio-button>
+        <mat-radio-button value="2">Gizli</mat-radio-button>
+        <mat-radio-button value="3">Taslak</mat-radio-button>
       </mat-radio-group>
+
+      <div style="float: right;">
+        <label>Yorum İzni: </label>
+        <mat-radio-group name="allowComments" [ngModel]="post?.allowComments">
+          <mat-radio-button value="1">Açık</mat-radio-button>
+          <mat-radio-button value="2">Kapalı</mat-radio-button>
+        </mat-radio-group>
+      </div>
     </div>
+
+    <div style="padding: 0 30px 0 30px;">
+      <mat-form-field>
+        <mat-select
+          placeholder="Kategori"
+          name="category"
+          [ngModel]="post?.category"
+        >
+          <mat-option value="1">Seyehat</mat-option>
+          <mat-option value="2">Spor</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div style="float: right;">
+        <label style="margin-right: 5px;">Fotoğraf: </label>
+        <button mat-stroked-button type="button" (click)="filePicker.click()">
+          Fotoğraf Seç
+        </button>
+        <input type="file" #filePicker />
+      </div>
+    </div>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      style=" float: right;width: 110px;margin-left: auto;"
+    >
+      Ekle
+    </button>
   </form>
-
-  <mat-form-field
-      [hideRequiredMarker]="options.value.hideRequired"
-      [floatLabel]="options.value.floatLabel">
-    <input matInput placeholder="Simple placeholder" required>
-  </mat-form-field>
-
-  <mat-form-field [floatLabel]="options.value.floatLabel">
-    <mat-label>Both a label and a placeholder</mat-label>
-    <input matInput placeholder="Simple placeholder">
-  </mat-form-field>
-
-  <mat-form-field
-      [hideRequiredMarker]="options.value.hideRequired"
-      [floatLabel]="options.value.floatLabel">
-    <mat-select required>
-      <mat-option>-- None --</mat-option>
-      <mat-option value="option">Option</mat-option>
-    </mat-select>
-    <mat-label><mat-icon>favorite</mat-icon> <b> Fancy</b> <i> label</i></mat-label>
-  </mat-form-field>
 </div>
-
-
-<!-- <div class="example-container">
-  <form (submit)="onSubmit(addNewPost)" #addNewPost="ngForm">
-    <mat-form-field>
-      <input matInput placeholder="Resim Yükle" name='image' ngModel>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Başlık" name='header' ngModel>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-select placeholder="Kategori" name='category' ngModel>
-        <mat-option value="1">Seyehat</mat-option>
-        <mat-option value="2">Spor</mat-option>
-        <mat-option value="3">Ekonomi</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-select placeholder="Durum" name='status' ngModel>
-        <mat-option value="1">Yayında</mat-option>
-        <mat-option value="2">Özel</mat-option>
-        <mat-option value="3">Taslak</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-select placeholder="Yorum Onayı" name='approval' ngModel>
-        <mat-option value="1">Açık</mat-option>
-        <mat-option value="2">Kapalı</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <button mat-raised-button color='primary' type="submit" style="float: right;">Ekle</button>
-
-  </form>
-   <mat-form-field>
-    <textarea matInput placeholder="Textarea"></textarea>
-  </mat-form-field> 
-
-</div> -->

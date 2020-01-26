@@ -9,7 +9,7 @@ const PostSchema = new Schema({
         ref: 'Users'
     },
     category: {
-        type: Schema.Types.ObjectId,
+        type: String,//Schema.Types.ObjectId,
         ref: 'Categories'
     },
     title: {
@@ -21,7 +21,7 @@ const PostSchema = new Schema({
         default: 'public'
     },
     allowComments: {
-        type: Boolean,
+        type: String,//bolean
         required: true
     },
     body: {

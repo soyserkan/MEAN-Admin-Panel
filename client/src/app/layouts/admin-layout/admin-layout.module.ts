@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
@@ -15,7 +15,7 @@ import { NotificationsComponent } from '../../pages/notifications/notifications.
 import {
   MatTableModule, MatFormFieldModule, MatPaginatorModule,
   MatSortModule, MatInputModule, MatButtonModule, MatIconModule,
-  MatDialogModule, MatRadioModule, MatSelectModule, MatCheckboxModule
+  MatDialogModule, MatRadioModule, MatSelectModule, MatCheckboxModule, MatChipsModule,MatToolbarModule
 } from '@angular/material';
 
 
@@ -43,7 +43,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
-    MatRadioModule, MatSelectModule, MatCheckboxModule
+    MatRadioModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatToolbarModule
   ],
   declarations: [
     DashboardComponent,
@@ -52,7 +56,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     PostsComponent,
     NewPostsComponent
   ],
-  providers:[],
+  providers: [],
   entryComponents: [NewPostsComponent],
 })
 

@@ -1,9 +1,9 @@
 module.exports = {
     port: process.env.PORT || 3000,
     db: {
-        host: 'xxx',
-        user: 'xxx',
-        password: 'xxx',
-        database: 'xxx'
+        host: '13442',
+        user: 'serkan',
+        password: '123123a',
+        database: 'blogsite-nodejs'
     }
 };

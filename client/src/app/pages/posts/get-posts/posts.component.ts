@@ -30,31 +30,15 @@ export class PostsComponent implements OnInit, OnDestroy {
   constructor(public dialog: MatDialog, public postsService: PostsService) { }
 
   dataSource: MatTableDataSource<Post>;
-  displayedColumns: string[] = ['_id', 'file', 'title', 'category', 'status', 'allowComments', 'date', 'actions'];
+  displayedColumns: string[] = ['id', 'file', 'title', 'category', 'status', 'allowComments', 'date', 'actions'];
 
   ngOnInit() {
     this.postsService.getPosts();
     this.postsSub = this.postsService.getPostUpdateListener().subscribe((posts: Post[]) => {
       this.posts = posts;
-      console.log(posts);
       this.dataSource = new MatTableDataSource(this.posts);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    });
-  }
-
-  ngOnDestroy() {
-    this.postsSub.unsubscribe();
-  }
-
-  addNewPost(): void {
-    const dialogRef = this.dialog.open(NewPostsComponent, {
-      width: '250px',
-      data: {}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.dataSource = new MatTableDataSource(this.posts);
     });
   }
 
@@ -65,6 +49,46 @@ export class PostsComponent implements OnInit, OnDestroy {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  addNewPost() {
+    const dialogRef = this.dialog.open(NewPostsComponent, {
+      width: '800px',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.dataSource = new MatTableDataSource(this.posts);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+  }
+
+  onDelete(postId: string) {
+    this.postsService.deletePost(postId);
+  }
+
+
+
+  getPost(postId: string) {
+    const modal = this.dialog.open(NewPostsComponent, {
+      width: '800px',
+      data: { id: postId }
+    });
+
+    modal.afterClosed().subscribe(result => {
+      this.dataSource = new MatTableDataSource(this.posts);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+  }
+
+
+
+  ngOnDestroy() {
+    this.postsSub.unsubscribe();
+  }
+
+
 }
 
 

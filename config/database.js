@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
-
+const { db } = require('./config');
 module.exports = async () => {
     try {
-        await mongoose.connect('mongodb://serkan:123123a@ds113442.mlab.com:13442/blogsite-nodejs', {
+        await mongoose.connect(`mongodb://${db.user}:${db.password}@ds113442.mlab.com:${db.host}/${db.database}`, {
             useUnifiedTopology: true,
-            useNewUrlParser: true
+            useNewUrlParser: true,
+            useCreateIndex: true,
         });
         console.log("MongoDB Connected");
     } catch (err) {
