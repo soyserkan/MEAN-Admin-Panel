@@ -1,17 +1,16 @@
 <div class="example-container">
   <mat-toolbar>Blog Yazısı Ekle</mat-toolbar>
-  <form
-    class="example-container"
-    (submit)="onSavePost(postForm)"
-    #postForm="ngForm"
-  >
+  <form [formGroup]="form" class="example-container" (submit)="onSavePost()">
     <mat-form-field>
       <input
         matInput
+        type="text"
         placeholder="Başlık"
-        name="title"
-        [ngModel]="post?.title"
+        formControlName="title"
       />
+      <mat-error *ngIf="form.get('title').invalid"
+        >Lütfen başlık giriniz</mat-error
+      >
     </mat-form-field>
 
     <mat-form-field>
@@ -19,14 +18,16 @@
         matInput
         placeholder="Blog Yazısı"
         rows="10"
-        name="body"
-        [ngModel]="post?.body"
+        formControlName="body"
       ></textarea>
+      <mat-error *ngIf="form.get('body').invalid"
+        >Lütfen blog yazısı giriniz</mat-error
+      >
     </mat-form-field>
 
     <div style="padding: 0 30px 0 30px;">
       <label>Durum: </label>
-      <mat-radio-group name="status" [ngModel]="post?.status">
+      <mat-radio-group formControlName="status">
         <mat-radio-button value="1">Yayında</mat-radio-button>
         <mat-radio-button value="2">Gizli</mat-radio-button>
         <mat-radio-button value="3">Taslak</mat-radio-button>
@@ -34,7 +35,7 @@
 
       <div style="float: right;">
         <label>Yorum İzni: </label>
-        <mat-radio-group name="allowComments" [ngModel]="post?.allowComments">
+        <mat-radio-group formControlName="allowComments">
           <mat-radio-button value="1">Açık</mat-radio-button>
           <mat-radio-button value="2">Kapalı</mat-radio-button>
         </mat-radio-group>
@@ -43,11 +44,7 @@
 
     <div style="padding: 0 30px 0 30px;">
       <mat-form-field>
-        <mat-select
-          placeholder="Kategori"
-          name="category"
-          [ngModel]="post?.category"
-        >
+        <mat-select placeholder="Kategori" formControlName="category">
           <mat-option value="1">Seyehat</mat-option>
           <mat-option value="2">Spor</mat-option>
         </mat-select>
@@ -57,7 +54,13 @@
         <button mat-stroked-button type="button" (click)="filePicker.click()">
           Fotoğraf Seç
         </button>
-        <input type="file" #filePicker />
+        <input type="file" #filePicker (change)="onImagePicked($event)" />
+        <div
+          class="image-preview"
+          *ngIf="imagePreview !== '' && imagePreview && form.get('file').valid"
+        >
+          <img [src]="imagePreview" [alt]="form.value.title" />
+        </div>
       </div>
     </div>
     <button

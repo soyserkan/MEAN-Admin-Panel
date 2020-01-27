@@ -1,5 +1,5 @@
-
 const Post = require('../models/Post');
+
 
 
 exports.getPosts = async (req, res) => {
@@ -28,8 +28,9 @@ exports.getPost = async (req, res) => {
 }
 
 exports.addPost = async (req, res) => {
+    const url = req.protocol + '://' + req.get('host');
     const post = new Post({
-        file: req.body.file,
+        file: url + "/public/images/" + req.file.filename,
         title: req.body.title,
         category: req.body.category,
         allowComments: req.body.allowComments,
@@ -40,8 +41,10 @@ exports.addPost = async (req, res) => {
         const savedPost = await post.save();
         res.status(201).json({
             message: 'Posts added succesfully!',
-            id: savedPost._id,
-            date: savedPost.date
+            post: {
+                ...savedPost,
+                id: savedPost._id
+            }
         });
     } catch (err) {
         throw err;
