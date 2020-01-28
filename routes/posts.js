@@ -32,7 +32,7 @@ router.get('/', posts.getPosts);
 router.get('/:id', posts.getPost);
 router.post('/', multer({ storage: storage }).single('file'), posts.addPost);
 router.delete('/:id', posts.deletePost);
-router.put('/:id', posts.updatePost);
+router.put('/:id', multer({ storage: storage }).single('file'), posts.updatePost);
 
 
 

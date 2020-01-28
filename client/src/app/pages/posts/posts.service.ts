@@ -37,7 +37,7 @@ export class PostsService {
     getPost(id: string) {
         return this.http.get<{
             _id: string,
-            file: File,
+            file: string,
             title: string,
             category: string,
             allowComments: string,
@@ -79,38 +79,56 @@ export class PostsService {
             });
     }
 
-    updatePost(id: string, file: (File | string), post: Post) {
+    updatePost(id: string, file: File | string, post: Post) {
+        let postData: Post | FormData;
         if (typeof (file) === 'object') {
-            const postData = new FormData();
+            postData = new FormData();
+            postData.append("id", post.id);
             postData.append('allowComments', post.allowComments);
             postData.append('body', post.body);
             postData.append('category', post.category);
             postData.append('comments', post.comments);
-            postData.append('date', post.date);
+            // postData.append('date', post.date);
             postData.append('file', file, post.title);
             postData.append('status', post.status);
             postData.append('title', post.title);
         } else {
-            const postData: Post = {
+            postData = {
                 id: id,
                 title: post.title,
-                file: file,
+                file: post.file,
                 category: post.category,
                 allowComments: post.allowComments,
                 status: post.status,
                 body: post.body,
+                date: post.date,
                 slug: '',
                 comments: '',
                 user: '',
-                date: Date.now()
             }
         }
-        this.http.put(`http://localhost:3000/api/posts/${id}`, postData)
+        this.http
+            .put(`http://localhost:3000/api/posts/${id}`, postData)
             .subscribe(res => {
+                console.log(res);
                 const updatedPosts = [...this.posts];
-                const oldPostIndex = updatedPosts.findIndex(p => p.id === postData.id);
-                updatedPosts[oldPostIndex] = postData;
+                const oldPostIndex = updatedPosts.findIndex(p => p.id === id);
+                const posta: Post = {
+                    id: id,
+                    title: post.title,
+                    file: res.data.file,
+                    category: post.category,
+                    allowComments: post.allowComments,
+                    status: post.status,
+                    body: post.body,
+                    date: res.data.date,
+                    slug: '',
+                    comments: '',
+                    user: ''
+                };
+                updatedPosts[oldPostIndex] = posta;
                 this.posts = updatedPosts;
+                console.log(this.posts);
                 this.postsUpdated.next([...this.posts]);
             });
 

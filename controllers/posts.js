@@ -61,12 +61,18 @@ exports.deletePost = async (req, res) => {
 }
 
 exports.updatePost = async (req, res) => {
+    let file = req.body.file;
+    if (req.file) {
+        const url = req.protocol + '://' + req.get('host');
+        file = url + "/public/images/" + req.file.filename;
+    };
     const post = {
         title: req.body.title,
         status: req.body.status,
         allowComments: req.body.allowComments,
         body: req.body.body,
         category: req.body.category,
+        file: file
     };
     try {
         const result = await Post.findByIdAndUpdate(req.params.id, post, { new: true, useFindAndModify: false });

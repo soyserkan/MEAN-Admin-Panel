@@ -29,7 +29,6 @@ export class NewPostsComponent implements OnInit {
 
 
   ngOnInit() {
-
     this.form = new FormGroup({
       'title': new FormControl(null, {
         validators: [Validators.required, Validators.minLength(5)]
@@ -60,7 +59,7 @@ export class NewPostsComponent implements OnInit {
         this.post = {
           id: postData._id,
           title: postData.title,
-          file: null,
+          file: postData.file,
           category: postData.category,
           allowComments: postData.allowComments,
           status: postData.status,
@@ -113,7 +112,11 @@ export class NewPostsComponent implements OnInit {
         this.form.value.body
       )
     } else {
-      this.postsService.updatePost(this.id, this.form.value.file, this.form.value);
+      this.postsService.updatePost(
+        this.id,
+        this.form.value.file,
+        this.form.value
+      );
     }
     // this.form.reset();
     this.dialogRef.close();

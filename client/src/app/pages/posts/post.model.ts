@@ -1,6 +1,6 @@
 export interface Post {
     [x: string]: any;
-    file: File;
+    file: string;
     title: string;
     category: string;
     allowComments: string;
