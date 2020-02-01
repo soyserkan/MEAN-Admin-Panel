@@ -1,11 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const path = require('path');
 const { port } = require('./config/config');
 
 const app = express();
 
-const db = require('./config/database')();
+require('./config/database')();
 
 
 
@@ -19,7 +18,7 @@ app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
         "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With,Content-Type, Accept"
+        "Origin, X-Requested-With,Content-Type, Accept,Authorization"
     );
     res.setHeader(
         "Access-Control-Allow-Methods",
@@ -29,8 +28,10 @@ app.use((req, res, next) => {
 })
 
 const postRouter = require('./routes/posts');
+const authRouter = require('./routes/auth');
 
 app.use('/api/posts', postRouter);
+app.use('/api/auth', authRouter);
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);

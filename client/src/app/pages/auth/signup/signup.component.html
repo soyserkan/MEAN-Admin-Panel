@@ -1,0 +1,39 @@
+<navbar-cmp></navbar-cmp>
+<mat-card>
+  <mat-toolbar>Üye Ol</mat-toolbar>
+  <form (submit)="onSignup(signupForm)" #signupForm="ngForm" >
+    <mat-form-field>
+      <input
+        matInput
+        name="email"
+        ngModel
+        type="email"
+        placeholder="Email Adresi"
+        #emailInput="ngModel"
+        required
+        email
+      />
+      <mat-error *ngIf="emailInput.invalid"
+        >Geçerli bir mail adresi giriniz.</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        name="password"
+        ngModel
+        type="password"
+        placeholder="Şifrenizi giriniz"
+        #passwordInput="ngModel"
+        required
+      />
+      <mat-error *ngIf="passwordInput.invalid"
+        >Geçerli bir şifre giriniz.</mat-error
+      >
+    </mat-form-field>
+    <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">
+      Üye Ol
+    </button>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+  </form>
+</mat-card>

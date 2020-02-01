@@ -6,8 +6,8 @@ import { NotificationsComponent } from '../../pages/notifications/notifications.
 import { PostsComponent } from '../../pages/posts/get-posts/posts.component';
 
 export const AdminLayoutRoutes: Routes = [
-    { path: 'dashboard',      component: DashboardComponent },
-    { path: 'posts',      component: PostsComponent },
-    { path: 'user',           component: UserComponent },
-    { path: 'notifications',  component: NotificationsComponent }
+    { path: 'dashboard', component: DashboardComponent },
+    { path: 'posts', component: PostsComponent },
+    { path: 'user', component: UserComponent },
+    { path: 'notifications', component: NotificationsComponent },
 ];

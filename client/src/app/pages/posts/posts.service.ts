@@ -108,7 +108,7 @@ export class PostsService {
             }
         }
         this.http
-            .put(`http://localhost:3000/api/posts/${id}`, postData)
+            .put<{ data: Post }>(`http://localhost:3000/api/posts/${id}`, postData)
             .subscribe(res => {
                 console.log(res);
                 const updatedPosts = [...this.posts];

@@ -15,7 +15,7 @@ import { NotificationsComponent } from '../../pages/notifications/notifications.
 import {
   MatTableModule, MatFormFieldModule, MatPaginatorModule,
   MatSortModule, MatInputModule, MatButtonModule, MatIconModule,
-  MatDialogModule, MatRadioModule, MatSelectModule, MatCheckboxModule, MatChipsModule,MatToolbarModule
+  MatDialogModule, MatRadioModule, MatSelectModule, MatCheckboxModule, MatChipsModule,MatToolbarModule,MatProgressSpinnerModule, MatCardModule
 } from '@angular/material';
 
 
@@ -47,7 +47,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatSelectModule,
     MatCheckboxModule,
     MatChipsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatProgressSpinnerModule,
+    MatCardModule
   ],
   declarations: [
     DashboardComponent,
