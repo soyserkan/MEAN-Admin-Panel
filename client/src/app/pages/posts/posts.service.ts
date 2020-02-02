@@ -24,7 +24,8 @@ export class PostsService {
                         status: post.status,
                         body: post.body,
                         date: post.date,
-                        id: post._id
+                        id: post._id,
+                        user:post.user
                     }
                 })
             }))

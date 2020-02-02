@@ -35,7 +35,8 @@ exports.addPost = async (req, res) => {
         category: req.body.category,
         allowComments: req.body.allowComments,
         status: req.body.status,
-        body: req.body.body
+        body: req.body.body,
+        user: req.userData.userId
     });
     try {
         const savedPost = await post.save();
@@ -53,8 +54,12 @@ exports.addPost = async (req, res) => {
 
 exports.deletePost = async (req, res) => {
     try {
-        const post = await Post.deleteOne({ _id: req.params.id });
-        res.status(200).json({ message: 'Post deleted!', data: post });
+        const post = await Post.deleteOne({ _id: req.params.id, user: req.userData.userId });
+        if (post.n > 0) {
+            res.status(200).json({ message: 'Post deleted!', data: post });
+        } else {
+            res.status(401).json({ message: 'Not authorized!' });
+        }
     } catch (err) {
         throw err
     }
@@ -72,11 +77,16 @@ exports.updatePost = async (req, res) => {
         allowComments: req.body.allowComments,
         body: req.body.body,
         category: req.body.category,
-        file: file
+        file: file,
+        user:req.userData.userId
     };
     try {
-        const result = await Post.findByIdAndUpdate(req.params.id, post, { new: true, useFindAndModify: false });
-        res.status(200).json({ message: 'Update successful!', data: result })
+        const result = await Post.findOneAndUpdate({ _id: req.params.id, user: req.userData.userId }, post, { new: true, useFindAndModify: false });
+        if (result) {
+            res.status(200).json({ message: 'Update successful!', data: result });
+        } else {
+            res.status(401).json({ message: 'Not authorized!' });
+        }
     } catch (err) {
         throw err
     }
