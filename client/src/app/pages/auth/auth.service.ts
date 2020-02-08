@@ -5,7 +5,9 @@ import { Subject } from 'rxjs';
 
 import { AuthData } from "./auth.model";
 
+import { environment } from '../../../environments/environment';
 
+const BACKEND_URL = environment.apiUrl + "/auth";
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -35,15 +37,17 @@ export class AuthService {
 
     createUser(email: string, password: string) {
         const authData: AuthData = { email: email, password: password };
-        this.http.post("http://localhost:3000/api/auth/signup", authData)
-            .subscribe(res => {
-                this.router.navigate(['/login']);
-            })
+        this.http.post(BACKEND_URL + '/signup', authData)
+            .subscribe(() => {
+                this.router.navigate['/login'];
+            }, error => {
+                this.authStatusListener.next(false);
+            });
     }
 
     login(email: string, password: string) {
         const authData: AuthData = { email: email, password: password };
-        this.http.post<{ token: string, expiresIn: number, userId: string }>("http://localhost:3000/api/auth/login", authData)
+        this.http.post<{ token: string, expiresIn: number, userId: string }>(BACKEND_URL + "/login", authData)
             .subscribe(response => {
                 const token = response.token;
                 this.token = token;
@@ -55,9 +59,11 @@ export class AuthService {
                     this.authStatusListener.next(true);
                     const now = new Date();
                     const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-                    this.saveAuthData(token, expirationDate,this.userId)
+                    this.saveAuthData(token, expirationDate, this.userId)
                     this.router.navigate(['/dashboard']);
                 }
+            }, error => {
+                this.authStatusListener.next(false);
             });
     }
 
@@ -117,7 +123,7 @@ export class AuthService {
         return {
             token: token,
             expirationDate: new Date(expirationDate),
-            userId:userId
+            userId: userId
         }
     }
 

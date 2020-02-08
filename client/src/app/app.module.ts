@@ -20,6 +20,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { AuthInterceptor } from './pages/auth/auth..interceptor';
 import { AuthGuard } from './pages/auth/auth.guard';
+import { ErrorInterceptor } from './error.interceptor';
+import { ErrorComponent } from './pages/error/error.component';
 
 
 
@@ -29,7 +31,8 @@ import { AuthGuard } from './pages/auth/auth.guard';
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -60,7 +63,12 @@ import { AuthGuard } from './pages/auth/auth.guard';
     ReactiveFormsModule,
     MatCardModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, AuthGuard],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+     AuthGuard
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [ErrorComponent],
 })
 export class AppModule { }

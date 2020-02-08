@@ -10,7 +10,9 @@ exports.getPosts = async (req, res) => {
             posts: postsData
         });
     } catch (err) {
-        throw err;
+       res.status(500).json({
+           message:'Dosyaları çekerken hata oluştu'
+       })
     }
 };
 
@@ -23,7 +25,9 @@ exports.getPost = async (req, res) => {
             res.status(404).json({ message: 'Post not found!' });
         }
     } catch (err) {
-        throw err;
+        res.status(500).json({
+            message:'Dosya çekerken hata oluştu'
+        })
     }
 }
 
@@ -48,7 +52,9 @@ exports.addPost = async (req, res) => {
             }
         });
     } catch (err) {
-        throw err;
+        res.status(500).json({
+            message:'Kayıt işleminde hata oluştu!'
+        })
     }
 };
 
@@ -61,7 +67,9 @@ exports.deletePost = async (req, res) => {
             res.status(401).json({ message: 'Not authorized!' });
         }
     } catch (err) {
-        throw err
+        res.status(500).json({
+            message:'Silme işleminde hata oluştu'
+        })
     }
 }
 
@@ -88,6 +96,8 @@ exports.updatePost = async (req, res) => {
             res.status(401).json({ message: 'Not authorized!' });
         }
     } catch (err) {
-        throw err
+        res.status(500).json({
+            message:'Güncelleme işleminde hata oluştu!'
+        })
     }
 }
